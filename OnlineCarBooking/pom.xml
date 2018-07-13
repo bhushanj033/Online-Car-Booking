@@ -7,7 +7,32 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>OnlineCarBooking Maven Webapp</name>
   <url>http://maven.apache.org</url>
+ 
+  <!-- version information is stored here -->
+  <properties>
+  <javaee.version>8.0</javaee.version>
+  <spring.version>5.0.7.RELEASE</spring.version>
+  </properties>
+  
   <dependencies>
+  <!--JAVA EE Api-->
+  <!-- https://mvnrepository.com/artifact/javax/javaee-api -->
+<dependency>
+    <groupId>javax</groupId>
+    <artifactId>javaee-api</artifactId>
+    <version>${javaee.version}</version>
+    <scope>provided</scope>
+</dependency>
+  
+  <!-- SPRING Dependencies -->
+  <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-webmvc</artifactId>
+    <version>5.0.7.RELEASE</version>
+</dependency>
+
+  
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -16,6 +41,19 @@
     </dependency>
   </dependencies>
   <build>
+  		<plugins>
+  			<!-- update to latest version jre -->
+  			<plugin>
+       				<artifactId>maven-compiler-plugin</artifactId>
+       				 <version>3.1</version>
+       			<configuration>
+       				<source>1.8</source>
+       				<target>1.8</target>
+       			</configuration>
+       		 </plugin>
+  	</plugins>
+  
     <finalName>OnlineCarBooking</finalName>
+    
   </build>
 </project>
