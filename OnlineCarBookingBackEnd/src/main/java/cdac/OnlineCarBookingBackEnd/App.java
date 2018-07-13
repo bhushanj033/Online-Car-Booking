@@ -1,4 +1,4 @@
-package cdac.CarBookingBackend;
+package cdac.OnlineCarBookingBackEnd;
 
 /**
  * Hello world!

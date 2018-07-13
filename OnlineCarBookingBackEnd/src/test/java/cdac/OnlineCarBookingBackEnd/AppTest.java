@@ -1,4 +1,4 @@
-package cdac.CarBookingBackend;
+package cdac.OnlineCarBookingBackEnd;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
