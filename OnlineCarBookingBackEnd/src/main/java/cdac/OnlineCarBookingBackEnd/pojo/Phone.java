@@ -1,7 +1,18 @@
+package cdac.OnlineCarBookingBackEnd.pojo;
+
+import java.io.Serializable;
+
+import javax.persistence.*;
+
+
 @Entity
 @Table(name = "PHONE")
-public class Phone {
+public class Phone implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private long phoneId;
 	private String phoneType;
 	private String phoneNumber;

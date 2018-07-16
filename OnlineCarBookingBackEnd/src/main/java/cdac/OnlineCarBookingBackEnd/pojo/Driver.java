@@ -9,8 +9,8 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name="Customer")
-public class Customer implements Serializable {
+@Table(name="Driver")
+public class Driver implements Serializable {
 
 		/**
 	 * 
@@ -21,6 +21,7 @@ public class Customer implements Serializable {
 		private String lastName;
 		private String username;
 		private String email;
+		private Address address;
 		private ArrayList<Phone> mobileNo = new ArrayList<Phone>();
 		private String password;
 		private boolean active=true;
@@ -28,13 +29,14 @@ public class Customer implements Serializable {
 		
 
 
-		public Customer(long id, String firstName, String lastName, String username, String email, ArrayList<Phone>mobileNo, String password) {
+		public Driver(long id, String firstName, String lastName, String username, String email, Address address, ArrayList<Phone>mobileNo, String password) {
 			super();
 			this.id = id;
 			this.firstName = firstName;
 			this.lastName = lastName;
 			this.username = username;
 			this.email = email;
+			this.address=address;
 			this.mobileNo = mobileNo;
 			this.password = password;
 		}
@@ -42,13 +44,13 @@ public class Customer implements Serializable {
 
 		@Id
 		@GeneratedValue
-		@Column(name="Customer_Id")
+		@Column(name="Driver_Id")
 		public long getId() {
 			return id;
 		}
 	
 	
-		@Column(name="Customer_FirstName", nullable=false,length=100)
+		@Column(name="Driver_FirstName", nullable=false,length=100)
 		public String getFirstName() {
 			return firstName;
 		}
@@ -58,7 +60,7 @@ public class Customer implements Serializable {
 			this.firstName = firstName;
 		}
 
-		@Column(name="Customer_LastName", nullable=false,length=100)
+		@Column(name="Driver_LastName", nullable=false,length=100)
 		public String getLastName() {
 			return lastName;
 		}
@@ -68,7 +70,7 @@ public class Customer implements Serializable {
 			this.lastName = lastName;
 		}
 		
-		@Column(name="Customer_UserName", nullable=false,length=100)
+		@Column(name="Driver_UserName", nullable=false,length=100)
 		public String getUsername() {
 			return username;
 		}
@@ -78,7 +80,7 @@ public class Customer implements Serializable {
 			this.username = username;
 		}
 
-		@Column(name="Customer_Email", nullable=false)
+		@Column(name="Driver_Email", nullable=false)
 		public String getEmail() {
 			return email;
 		}
@@ -88,9 +90,19 @@ public class Customer implements Serializable {
 			this.email = email;
 		}
 
+		@OneToOne 
+		public Address getAddress() {
+			return address;
+		}
+
+
+		public void setAddress(Address address) {
+			this.address = address;
+		}
+
 
 		@OneToMany(cascade = CascadeType.ALL)
-		@JoinTable(name = "Customer_MobileNo", joinColumns = { @JoinColumn(name = "Customer_Id") }, inverseJoinColumns = { @JoinColumn(name = "PHONE_ID") })
+		@JoinTable(name = "Driver_MobileNo", joinColumns = { @JoinColumn(name = "Driver_Id") }, inverseJoinColumns = { @JoinColumn(name = "PHONE_ID") })
 		public ArrayList<Phone> getMobileNo() {
 			return this.mobileNo;
 		}
@@ -121,7 +133,7 @@ public class Customer implements Serializable {
 		@Override
 		public String toString() {
 			return "Customer id=" + id + ", username=" + username + ", email=" + email 
-					+ ", mobileno=" + mobileNo + ", password=" + password;
+					+ ", mobileno=" + mobileNo + ", password=" + password+" ,Address= "+address;
 		}
 		
 		
