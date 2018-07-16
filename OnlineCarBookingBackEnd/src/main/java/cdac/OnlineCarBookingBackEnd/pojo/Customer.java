@@ -10,14 +10,14 @@ public class Customer {
 		private String username;
 		private String email;
 		private Address address;
-		private String mobileno;
+		private List<Phone> mobileNo = new List<Phone>();
 		private String password;
 		private boolean active=true;
 		
 		
 
 
-		public Customer(long id, String firstName, String lastName, String username, String email, Address address, String mobileno, String password) {
+		public Customer(long id, String firstName, String lastName, String username, String email, Address address, List<Phone>mobileNo, String password) {
 			super();
 			this.id = id;
 			this.firstName = firstName;
@@ -25,14 +25,14 @@ public class Customer {
 			this.username = username;
 			this.email = email;
 			this.address = address;
-			this.mobileno = mobileno;
+			this.mobileNo = mobileNo;
 			this.password = password;
 		}
 	
 
 		@Id
 		@GeneratedValue
-		@Column(name="Customer_ID")
+		@Column(name="Customer_Id")
 		public long getId() {
 			return id;
 		}
@@ -89,14 +89,14 @@ public class Customer {
 			this.address = address;
 		}
 
-		@Column(name="Customer_Mobile", nullable=false)
-		public String getMobileno() {
-			return mobileno;
+		@OneToMany(cascade = CascadeType.ALL)
+		@JoinTable(name = "Customer_MobileNo", joinColumns = { @JoinColumn(name = "Customer_Id") }, inverseJoinColumns = { @JoinColumn(name = "PHONE_ID") })
+		public Set<Phone> getMobileNo() {
+			return this.mobileNo;
 		}
 
-
-		public void setMobileno(String mobileno) {
-			this.mobileno = mobileno;
+		public void setMobileNo(Set<Phone> mobileNo) {
+			this.mobileNo= mobileNo;
 		}
 
 
