@@ -2,6 +2,9 @@ package cdac.OnlineCarBookingBackEnd.pojo;
 
 import java.io.Serializable;
 
+import javax.persistence.*;
+
+@Embeddable
 public class Cab implements Serializable {
 	/**
 	 * 
@@ -22,14 +25,17 @@ public class Cab implements Serializable {
 		this.costPerKm = costPerKm;
 	}
 
+	@Column(name="cab_number")
 	public String getCabNumber() {
 		return cabNumber;
 	}
-
+	
+	
 	public void setCabNumber(String cabNumber) {
 		this.cabNumber = cabNumber;
 	}
-
+	
+	@Column(name="cab_type")
 	public String getCabType() {
 		return cabType;
 	}
@@ -38,6 +44,7 @@ public class Cab implements Serializable {
 		this.cabType = cabType;
 	}
 
+	@Column(name="cab_name")
 	public String getCabName() {
 		return cabName;
 	}
@@ -46,6 +53,7 @@ public class Cab implements Serializable {
 		this.cabName = cabName;
 	}
 
+	@Column(name="owner_name")
 	public String getOwnerName() {
 		return ownerName;
 	}
@@ -54,6 +62,7 @@ public class Cab implements Serializable {
 		this.ownerName = ownerName;
 	}
 
+	@Column(name="cost_pr_km")
 	public double getCostPerKm() {
 		return costPerKm;
 	}

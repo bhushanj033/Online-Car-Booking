@@ -2,7 +2,7 @@ package cdac.OnlineCarBookingBackEnd.pojo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -10,8 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="Customer")
-public class Customer implements Serializable {
-
+public class Customer implements Serializable { 
 		/**
 	 * 
 	 */
@@ -21,14 +20,14 @@ public class Customer implements Serializable {
 		private String lastName;
 		private String username;
 		private String email;
-		private ArrayList<Phone> mobileNo = new ArrayList<Phone>();
+		private String mobileNo;
 		private String password;
 		private boolean active=true;
-		
+		private List<Trip> trips = new ArrayList<Trip>();
 		
 
 
-		public Customer(long id, String firstName, String lastName, String username, String email, ArrayList<Phone>mobileNo, String password) {
+		public Customer(long id, String firstName, String lastName, String username, String email,String mobileNo, String password) {
 			super();
 			this.id = id;
 			this.firstName = firstName;
@@ -42,7 +41,7 @@ public class Customer implements Serializable {
 
 		@Id
 		@GeneratedValue
-		@Column(name="Customer_Id")
+		@Column(name="customer_Id")
 		public long getId() {
 			return id;
 		}
@@ -89,17 +88,17 @@ public class Customer implements Serializable {
 		}
 
 
-		@OneToMany(cascade = CascadeType.ALL)
-		@JoinTable(name = "Customer_MobileNo", joinColumns = { @JoinColumn(name = "Customer_Id") }, inverseJoinColumns = { @JoinColumn(name = "PHONE_ID") })
-		public ArrayList<Phone> getMobileNo() {
+		
+		@Column(name="mobile_no",nullable=false)
+		public String getMobileNo() {
 			return this.mobileNo;
 		}
 
-		public void setMobileNo(ArrayList<Phone> mobileNo) {
+		public void setMobileNo(String mobileNo) {
 			this.mobileNo= mobileNo;
 		}
 
-
+		@Column(name="password",nullable=false)
 		public String getPassword() {
 			return password;
 		}
@@ -107,7 +106,8 @@ public class Customer implements Serializable {
 		public void setPassword(String password) {
 			this.password = password;
 		}
-
+		
+		@Column(name="active")
 		public boolean isActive() {
 			return active;
 		}
@@ -117,12 +117,39 @@ public class Customer implements Serializable {
 			this.active = active;
 		}
 
+		
+		@OneToMany(mappedBy = "customer",cascade=CascadeType.ALL)
+		public List<Trip> getTrips() {
+			return trips;
+		}
 
+
+		public void setTrips(List<Trip> trip) {
+			this.trips = trip;
+		}
+
+
+		//Convenience method
+		
+				public void AddTrip(Trip trip)
+				{
+					trips.add(trip);
+					trip.setCustomer(this);
+				}
+				
+				public void removeTrip(Trip trip)
+				{
+					trips.remove(trip);
+				}
+				
+		
+		
 		@Override
 		public String toString() {
 			return "Customer id=" + id + ", username=" + username + ", email=" + email 
 					+ ", mobileno=" + mobileNo + ", password=" + password;
 		}
+		
 		
 		
 		

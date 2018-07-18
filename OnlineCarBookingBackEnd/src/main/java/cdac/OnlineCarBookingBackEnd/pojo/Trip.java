@@ -1,6 +1,12 @@
 package cdac.OnlineCarBookingBackEnd.pojo;
 
 import java.io.Serializable;
+import java.sql.Date; //util or sql confused
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="Trips")
 
 public class Trip implements Serializable {
 
@@ -8,62 +14,101 @@ public class Trip implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String source;
-	String destination;
-	String customerId;
-	String driverId;
+	int tripId;
+	Location source,destination;
+	Customer customer;
+	Driver driver;
 	Double amount;
-	String status;
-	String carType;
-	String FriendMobileNumber,FriendName;
+	String cabType;
+	Date Start,End;
+	boolean active,isCancelled;
 	
-	public Trip(String source, String destination, String customerId, String driverId,
-			Double amount, String status,String carType, String friendMobileNumber, String friendName)
+	public Trip(Location source, Location destination,Double amount,String cabType,Date start,Date end)
 	{
 		super();
 		this.source = source;
 		this.destination = destination;
-		this.customerId = customerId;
-		this.driverId = driverId;
 		this.amount = amount;
-		this.status = status;
-		this.carType = carType;
-		FriendMobileNumber = friendMobileNumber;
-		FriendName = friendName;
+		this.cabType = cabType;
+		this.Start=start;
+		this.End=end;
+		this.active=true;
+		this.isCancelled=false;
 	}
 
-	public String getSource() {
+	
+	@Column(name="start_time")
+	public Date getStart() {
+		return Start;
+	}
+
+
+
+	public void setStart(Date start) {
+		Start = start;
+	}
+
+
+	@Column(name="end_time")
+	public Date getEnd() {
+		return End;
+	}
+
+
+
+	public void setEnd(Date end) {
+		End = end;
+	}
+
+
+	@Id
+	@GeneratedValue
+	@Column(name="TripId")
+	public int getTripId() {
+		return tripId;
+	}
+
+
+	@Embedded
+	public Location getSource() {
 		return source;
 	}
 
-	public void setSource(String source) {
+	
+	public void setSource(Location source) {
 		this.source = source;
 	}
 
-	public String getDestination() {
+	@Embedded
+	public Location getDestination() {
 		return destination;
 	}
 
-	public void setDestination(String destination) {
+	public void setDestination(Location destination) {
 		this.destination = destination;
 	}
 
-	public String getCustomerId() {
-		return customerId;
+	@ManyToOne
+	@JoinColumn(name="customer_Id")
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
-	public String getDriverId() {
-		return driverId;
+	@ManyToOne
+	@JoinColumn(name="driver_Id")
+	public Driver getDriver() {
+		return driver;
 	}
 
-	public void setDriverId(String driverId) {
-		this.driverId = driverId;
+	public void setDriver(Driver driver) {
+		this.driver = driver;
 	}
 
+	@Column(name="amount")
 	public Double getAmount() {
 		return amount;
 	}
@@ -72,37 +117,52 @@ public class Trip implements Serializable {
 		this.amount = amount;
 	}
 
-	public String getStatus() {
-		return status;
+	
+
+	@Column(name="cab_type")
+	public String getcabType() {
+		return cabType;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setcabType(String cabType) {
+		this.cabType = cabType;
 	}
 
-	public String getCarType() {
-		return carType;
+
+	@Column(name="active")
+	public boolean isActive() {
+		return active;
 	}
 
-	public void setCarType(String carType) {
-		this.carType = carType;
+
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
-	public String getFriendMobileNumber() {
-		return FriendMobileNumber;
+
+	
+	@Column(name="cancelled")
+	public boolean isCancelled() {
+		return isCancelled;
 	}
 
-	public void setFriendMobileNumber(String friendMobileNumber) {
-		FriendMobileNumber = friendMobileNumber;
+
+
+	public void setCancelled(boolean isCancelled) {
+		this.isCancelled = isCancelled;
 	}
 
-	public String getFriendName() {
-		return FriendName;
+
+	@Override
+	public String toString() {
+		return "Trip [tripId=" + tripId + ", source=" + source + ", destination=" + destination + ", customer="
+				+ customer + ", driver=" + driver + ", amount=" + amount + ", cabType=" + cabType + ", Start=" + Start
+				+ ", End=" + End + "]";
 	}
 
-	public void setFriendName(String friendName) {
-		FriendName = friendName;
-	}
-
+	
+	
+	
 	
 }
