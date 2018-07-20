@@ -11,6 +11,8 @@
 
 
 	<context:component-scan base-package="cdac.OnlineCarBooking.controller" />
+	<context:component-scan base-package="cdac.OnlineCarBookingBackEnd.Dao" />
+	
 	
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"

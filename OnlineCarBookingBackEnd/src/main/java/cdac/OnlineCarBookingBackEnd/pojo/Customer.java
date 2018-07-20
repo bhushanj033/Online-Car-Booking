@@ -6,10 +6,12 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.springframework.stereotype.Component;
 
 
 @Entity
 @Table(name="Customer")
+@Component
 public class Customer implements Serializable { 
 		/**
 	 * 
