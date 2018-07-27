@@ -1,28 +1,32 @@
-package cdac.OnlineCarBookingBackEnd.pojo;
+package com.app.pojo;
 
-import java.io.Serializable;
+
+import java.util.List;
 
 import javax.persistence.*;
 
+
 @Embeddable
-public class Cab implements Serializable {
+public class Cab {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String cabNumber;
-	String cabType;
-	String cabName;
-	double costPerKm;
-	String ownerName;
+	private String cabNumber;
+	private String cabType;
+	private String cabName;
+	private double costPerKm;
+	private Driver driver;
+	private List<BookedRides> bookedRides;
+	
 
-	public Cab(String cabNumber, String cabType, String cabName,String ownerName, double costPerKm) {
+	public Cab(String cabNumber, String cabType, String cabName, double costPerKm,Driver driver) {
 		super();
 		this.cabNumber = cabNumber;
 		this.cabType = cabType;
 		this.cabName = cabName;
-		this.ownerName = ownerName;
 		this.costPerKm = costPerKm;
+		this.driver=driver;
 	}
 
 	@Column(name="cab_number")
@@ -52,16 +56,8 @@ public class Cab implements Serializable {
 	public void setCabName(String cabName) {
 		this.cabName = cabName;
 	}
-
-	@Column(name="owner_name")
-	public String getOwnerName() {
-		return ownerName;
-	}
-
-	public void setOwnerName(String ownerName) {
-		this.ownerName = ownerName;
-	}
-
+	
+	
 	@Column(name="cost_pr_km")
 	public double getCostPerKm() {
 		return costPerKm;
@@ -71,4 +67,24 @@ public class Cab implements Serializable {
 		this.costPerKm = costPerKm;
 	}
 
+	@Embedded
+	public Driver getDriver() {
+		return driver;
+	}
+
+	public void setDriver(Driver driver) {
+		this.driver = driver;
+	}
+
+	@OneToMany(mappedBy = "cab")
+	public List<BookedRides> getBookedRides() {
+		return bookedRides;
+	}
+
+	public void setBookedRides(List<BookedRides> bookedRides) {
+		this.bookedRides = bookedRides;
+	}
+	
+	
+	
 }
